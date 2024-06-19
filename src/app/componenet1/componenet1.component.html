@@ -1,0 +1,79 @@
+<div class="card flex justify-content-center"    >
+    <p-sidebar #sidebarRef [(visible)]="sidebarVisible" >
+        <ng-template pTemplate="headless" >
+            <div class="flex flex-column h-full" class="body" >
+                <div class="flex align-items-center justify-content-between px-4 pt-3 flex-shrink-0">
+                    <span class="inline-flex align-items-center gap-2" style="display:inline-block;width:80%;">
+                        <i class="fa fa-globe" style="color:blue;font-size:50px;"></i>
+                        <span class="font-semibold text-2xl text-primary " style="margin-left: 20px; font-size: 20px;">Global Search</span>
+                    </span>
+                    
+                    <span>
+                        <p-button type="button" (click)="closeCallback($event)" icon="pi pi-times" rounded="true" outlined="true" [style]="{'width':'30px','height':'30px','margin-left':'20px','background-color':'blue','color':'white'}"></p-button>
+                    </span>
+                </div>
+                <div class="overflow-y-scroll" id="contents">
+                    <form [formGroup]="formGroup">
+                        <p [style]="{'margin-left':'10px'}"> <b>Api</b></p>
+                        <p-dropdown class="dropdown"
+                            formControlName="selectedCity" 
+                            [options]="cities"
+                            optionLabel="name"
+                            placeholder="Select a City"
+                            [style]="{'width':'80%'}" />
+                    </form>
+
+                    <form [formGroup]="formGroup">
+                        <p [style]="{'margin-left':'10px'}"><b>Result set</b></p>
+                        <p-dropdown 
+                            formControlName="selectedCity" 
+                            [options]="cities"
+                            optionLabel="name"
+                            placeholder="Select a City"
+                            [style]="{'width':'80%'}" />
+                    </form>
+
+                    <div>
+                        <p [style]="{'margin-left':'10px'}"> <b>Fields </b></p>
+                        <form [formGroup]="formGroup1" >
+                            <div formArrayName="selectedCity1" >
+                                <div *ngFor="let selectedCity2 of selectedCity1.controls;let i=index" >
+                                    <div [formGroupName]="i" class="top">
+
+                                  
+                                    <p-dropdown 
+                                    formControlName="selectedCity"
+                                    [options]="cities"
+                                    optionLabel="name"
+                                    placeholder="Select a City"
+                                    [style]="{'width':'80%','margin-bottom':'20px'}"
+                                   />
+                                    <input type="text" pInputText id="text" formControlName="text" placeholder="   ENTER THE VALUE" />
+                                    <p-button *ngIf="!i" type="button" (click)="Addnewrow()" icon="pi pi-plus" rounded="true" outlined="true"    [style]="{'width':'30px','height':'30px','margin-left':'20px','margin-bottom':'10px','background-color':'blue','color':'white'}"></p-button>
+                                    <p-button *ngIf="i" type="button" (click)="removerow(i)" icon="pi pi-minus" rounded="true" outlined="true"      [style]="{'width':'30px','height':'30px','margin-left':'20px','margin-bottom':'10px','background-color':'blue','color':'white'}"></p-button>
+
+                                </div>
+                                </div>
+                                
+                            </div>
+                           
+                        </form>
+                
+                    </div>
+                    <div class="btn">
+                        <p-button label="Search" />
+                    
+                        <p-button label="Export" />
+                    </div>
+                    
+
+                </div>
+                <div class="mt-auto">
+                    <hr class="mb-3 mx-3 border-top-1 border-none surface-border" />
+                </div>
+            </div>
+           
+        </ng-template>
+    </p-sidebar>
+    <p-button (click)="sidebarVisible = true" icon="pi pi-arrow-right"></p-button>
+    </div>

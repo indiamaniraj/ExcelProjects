@@ -1,0 +1,165 @@
+
+<div class="header">
+<li>HTML</li>
+<li>CSS</li>
+<li>JS</li>
+<li>SQL</li>
+<li>PYTHON</li>
+<li>JAVA</li>
+</div>
+<div id="side-nav" >
+<a id="itreate" class="active"  *ngFor="let value of datafirst;let i=index;" href="#{{i}}" (click)="color(i)" [innerHtml]="value"></a>
+
+</div>
+
+<main class="content">
+
+<section class="subheader">
+
+    <div class="card flex justify-content-center" style="margin-top: 100px;">
+        <p-toast />
+        <p-fileUpload 
+            mode="basic" 
+            chooseLabel="Choose" 
+            chooseIcon="pi pi-upload"
+            name="demo[]" 
+            url="https://www.primefaces.org/cdn/api/upload.php" 
+            accept=".xlsx, .xls"
+            maxFileSize="1000000" 
+            (onUpload)="onUpload($event)"
+             />  
+    </div>
+    <div style="margin-top: 100px;">
+        <p-button label="View-Change" (click)="toggle()" />
+    </div>
+    
+</section>
+
+<section class="details">
+
+
+<div [ngSwitch]="display">
+    <div *ngSwitchCase="'table-view'">
+        <p-table [value]="data1.slice(1)" [tableStyle]="{ 'min-width': '50rem' }" >
+            <ng-template pTemplate="header">
+                <tr>
+                    <th *ngFor="let row of data1[0]">{{row}}</th>
+                                   
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-rowData ;>
+                <tr  >
+                    <td  *ngFor="let cell of rowData;" >
+                        
+                            {{cell|pipes}} 
+                    </td>
+                   
+                </tr>
+              
+            </ng-template>
+            
+        </p-table>
+    </div>
+    <div *ngSwitchCase="'content-view'">
+        <p-toggleButton 
+    [(ngModel)]="viewtype" 
+    onLabel="excel-format" 
+    offLabel="html-format" />
+        <div [ngSwitch]="viewtype">
+
+            <div *ngSwitchCase="true">
+                <div *ngFor="let value of arrayOfObjects2 let i=index">
+      
+                    <div id="{{i}}" *ngIf="value.heading">
+                        <div [innerHtml]="value.heading"></div>
+                        <div [innerHtml]="value.subheading"></div>
+                        <div [innerHtml]="value.content" id="content"></div>
+                        <div [innerHtml]="value.note"></div>
+                        <div [innerHtml]="value.url"></div>
+                        <div>
+                            <p-card header="Advanced Card" subheader="Card Subheader" [style]="{ width: '360px' }">
+                                <ng-template pTemplate="header" >
+                                    <span [innerHtml]="value.image"></span>
+                                </ng-template>
+                             
+                            </p-card>
+                            <hr>
+                        </div>
+                        <div>
+                            <p-editor   [style]="{ height: '320px' }" [(ngModel)]="codingvalue"  value="codingvalue">
+                                <!-- <ng-template pTemplate="body">
+                                    <span [innerHtml]="value.codeing ">
+                                        
+                                    </span>
+                                </ng-template> -->
+                               
+                            </p-editor>
+                            {{codingvalue[i]}}
+                            <hr>
+                        </div>
+                        <div>
+                            <video id="video">
+                                <source id="mp4_src" src="https://www.w3schools.com/jsref/mov_bbb.mp4" type="video/mp4">
+                                <source id="ogg_src"  src="https://www.w3schools.com/jsref/mov_bbb.mp4" type="video/ogg">
+                                Your browser does not support the video tag.
+                              </video>
+                              <p>Click the buttons to play or pause the video.</p>
+
+                              <button (click)="playVid(i)" type="button">Play Video</button>
+                              <button (click)="pauseVid(i)" type="button">Pause Video</button> 
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+            <div *ngSwitchCase="false">
+                <div *ngFor="let value of arrayOfObjects2">
+      
+                    <div *ngIf="value.heading">
+                        <div>
+                            <h1>{{value.heading}}</h1>
+
+                            <h3>{{value.subheading}}</h3>
+
+                            <div>
+                                <p>{{value.content}}</p>
+                            </div>
+                        </div>
+                       
+
+                    </div>
+                    
+                </div>
+            </div>
+            <div *ngSwitchCaseDefault="">
+                you entered the wrong value
+                  </div>
+        </div>
+   
+
+    </div>
+    <div *ngSwitchCaseDefault="">
+  you entered the wrong value
+    </div>
+</div>
+</section>
+</main>
+      <!-- <div *ngFor="let cell of value"[innerHtml]="cell"></div> -->
+<!-- <table>
+    <tr >
+
+        <th *ngFor="let row of data1[0]">{{row}}</th>
+    </tr>
+
+    <tr *ngFor="let row of data1.slice(1)">
+        <td *ngFor="let cell of row">{{cell}}</td>
+    </tr>
+</table> -->
+
+
+
+
+
+
+
+

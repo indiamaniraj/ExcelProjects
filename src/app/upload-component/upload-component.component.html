@@ -1,0 +1,30 @@
+<div class="card flex justify-content-center">
+    <p-toast />
+    <p-fileUpload 
+        mode="basic" 
+        chooseLabel="Choose" 
+        chooseIcon="pi pi-upload"
+        name="demo[]" 
+        url="https://www.primefaces.org/cdn/api/upload.php" 
+        accept=".xlsx" 
+        maxFileSize="1000000" 
+        (onUpload)="onUpload($event)" />
+     
+</div>
+
+<p-table [value]="data1" [tableStyle]="{ 'min-width': '50rem' }">
+    <ng-template pTemplate="header">
+        <tr>
+            <th>Name</th>
+            <th>Age</th>
+            <th>City</th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-value>
+        <tr>
+            <td>{{value.Name}}</td>
+            <td>{{value.Age}}</td>
+            <td>{{value.City}}</td>
+        </tr>
+    </ng-template>
+</p-table>
