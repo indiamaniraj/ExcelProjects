@@ -139,17 +139,6 @@ toggle()
       this.display='table-view'
     }
 }
-// toggle1()
-// {
-//   if(this.viewtype=='excel-format')
-//     {
-//       this.viewtype='html-format';
-//     }
-//     else
-//     {
-//       this.viewtype='excel-format'
-//     }
-// }
 
 
 color(i:number)

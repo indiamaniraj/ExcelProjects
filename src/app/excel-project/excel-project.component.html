@@ -1,0 +1,148 @@
+<div class="header">
+<h1 >{{sheetname}}</h1>
+</div>
+<main id="main">
+  <!-- <div class="side-nav">
+    <a  *ngFor="let value of arrayoflist;let i=index" (click)="scroll(i)">{{value.questions}}</a>   
+   </div> -->
+   <div *ngIf="loaded">
+    <app-question [arraylist]="arrayoflist" (data)="scroll($event)" ></app-question>
+   </div>
+   
+ <section class="content2" >
+   <section>
+     <div class="sub-header">
+       <p-toast />
+       <p-fileUpload 
+           mode="basic" 
+           chooseLabel="Choose" 
+           chooseIcon="pi pi-upload"
+           name="demo[]" 
+           url="https://www.primefaces.org/cdn/api/upload.php" 
+           accept=".xlsx, .xls"
+           maxFileSize="1000000" 
+           (onUpload)="onUpload($event)" />
+           <div *ngIf="loaded">
+            <p-button label="reload"  (click)="reload()" />
+          </div>
+           <div *ngIf="loaded" >
+            <app-left-slide ></app-left-slide>
+          </div>
+         
+   </div>
+    </section>
+   
+  
+      <section>
+       <div id="content" *ngFor="let value of arrayoflist.slice(first,rows+first);let i=index">
+         <p id="{{value.SNO}}"><span>{{value.SNO}}.</span> {{value.questions}}</p>
+        
+       <div *ngFor="let value2 of value.options">
+      
+        <p-radioButton
+  
+      [ngStyle]="(value.showanswer==true&&value2.isselcted==true)?(value2.value==value.answers.toString())?{'color':'green'}:{'color':'red'}:(value.showanswer==true && value2.value === value.answers.toString())?{'color':'green'}:{'color':'black'}"
+         (onClick)="chooseoption(value.SNO)"
+         [(ngModel)]="value.selected"
+         name="group"
+         [label]="value2.value"
+         [value]="value2.value"
+         /> 
+     
+       </div>
+    
+        <p-button label="showanswer" severity="secondary" (click)="showanswer(i)" [hidden]="value.Answerbutton" />
+ 
+       <div class="answer" *ngIf="value.showanswer" >
+         <p [ngStyle]="(value.status === 'Correct Answer') ? { 'color': 'green' } : { 'color': 'red' }">{{value.status}}</p>
+         <p>{{value.explanations}}</p>
+       </div>
+     </div>
+      </section>
+       
+ </section>
+
+ <div class="card flex justify-content-center">
+  <p-paginator 
+  *ngIf="loaded"
+  class="paginator"
+  (onPageChange)="onPageChange($event)" 
+      [first]="first" 
+      [rows]="rows" 
+      [totalRecords]="arrayoflist.length" 
+      [rowsPerPageOptions]="[2,5,10,20]" 
+      [showCurrentPageReport]="true"
+      currentPageReportTemplate="{first} - {last} of {totalRecords}" [showPageLinks]="false" [showFirstLastIcon]="false"
+      
+      />
+</div>
+<!-- <div *ngIf="loaded"  class="card flex justify-content-center " >
+  <p-button label="Submit" (click)="exportdata()" />
+</div> -->
+<div *ngIf="loaded" class="card flex justify-content-center" style="position: fixed;
+left: 70%;
+bottom: 10px;">
+  <p-button (click)="showDialog()" label="Export" />
+  <p-dialog header="Edit Profile" [modal]="true" [(visible)]="visible" [style]="{ width: '25rem' }">
+      <div class="flex align-items-center gap-2 mb-0">
+        <form [formGroup]="FormGroup1">
+          <label for="email" class="font-semibold w-6rem">Email</label>
+          <input pInputText id="username" formControlName="text" id="email" class="flex-auto" autocomplete="off" placeholder="Enter te email" style="margin-left: 20px;" />
+        <div *ngIf="FormGroup1.controls['text'].touched">
+        <div *ngIf="FormGroup1.controls['text'].errors?.['required']">Email is required</div>
+        <div *ngIf="FormGroup1.controls['text'].errors?.['email']">Required of type email with &#64; annotations</div>
+        </div>
+        <div class="flex justify-content-end gap-2">
+          <p-button label="Save" (click)="exportdata()" [style]="{'margin-top': '20px;'}" [disabled]="FormGroup1.invalid" />
+
+      </div>
+        </form>
+      </div>
+     
+  </p-dialog>
+</div>
+</main>
+ 
+
+
+<!-- [ngStyle]="(value.selected == value.answers || value2.isselcted== true) ? { 'color': 'green' } : { 'color': 'red' }" -->
+
+<!-- //style:background-color:aqua
+//style:background-color:red; -->
+
+
+<!-- <p-table
+    [value]="arrayoflist"
+    [paginator]="true"
+    [rows]="5"
+    [tableStyle]="{ 'min-width': '50rem' }"
+    [rowsPerPageOptions]="[5, 10, 20]"
+>
+    <ng-template pTemplate="body" let-value >
+        <tr>
+            <p ><span>{{value.SNO}}.</span> {{value.questions}}</p>
+           
+          <div *ngFor="let value2 of value.options">
+            <p-radioButton
+            [(ngModel)]="value.selected"
+            name="group"
+            [label]="value2.value"
+            [value]="value2.value"
+            /> 
+            
+          </div>
+       
+          <p-button label="showanswer" severity="secondary" />
+    
+          <div *ngIf="value.showanswer" >
+            <p [ngStyle]="(value.status === 'Correct Answer') ? { 'background-color': 'green' } : { 'background-color': 'red' }">{{value.status}}</p>
+            <p>{{value.explanations}}</p>
+          </div>
+        </tr>
+    </ng-template>
+</p-table> -->
+
+<!-- [ngStyle]="(value.selected==value.answers && value.showanswer ==true)?{'background-color': 'green'}:{}" -->
+
+<!-- [ngStyle]="(value.selected==value.answers && (value.showanswer ==true && value2.isselcted ==true))?{'color':'green'}:(value2.isselcted==true && value.selected !=value.answer)?{'color':'green'}:{'color':'black'}" -->
+ 

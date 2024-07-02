@@ -1,0 +1,27 @@
+.side-nav
+{
+    width: 400px;
+     height: 100%; 
+     position: fixed; 
+     top: 40px;
+
+    overflow-y: scroll ;
+    background-color:white;
+    display: flex;
+    list-style: none;
+    flex-direction: column;
+    gap: 40px;
+
+    cursor: pointer;
+    z-index: 2;
+  
+}
+.side-nav a:first-child
+{
+margin-top: 0px;
+}
+.side-nav a:last-child
+{
+
+    margin-bottom: 100px;
+}

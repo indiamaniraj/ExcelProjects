@@ -1,0 +1,30 @@
+#contents
+{
+    display: flex;
+    flex-direction: column;
+  gap:30px;
+}
+
+.btn
+{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+#text
+{
+    width: 79%;
+    height: 50px;
+    margin-left: 10px;
+}
+
+.top
+{
+    margin-top: 30px;
+}
+.body
+{
+    overflow-y: scroll;
+    height: 100%;
+}
